@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
-import { EnvConfigService } from 'src/shared/config/env';
+import { EnvConfigService } from '@shared/config/env';
 
 @Injectable()
 export class FirebaseAppProvider {

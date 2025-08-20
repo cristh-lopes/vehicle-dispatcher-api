@@ -1,0 +1,39 @@
+services:
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   container_name: auto-sync-api
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - postgres
+  #   restart: unless-stopped
+  #   networks:
+  #     - auto-sync-network
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5431:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - auto-sync-network
+
+volumes:
+  postgres_data:
+
+networks:
+  auto-sync-network:
+    driver: bridge
