@@ -22,7 +22,7 @@ export class CreateUserValidatorDTO {
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(20)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, {
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,20}$/, {
     message:
       'Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character',
   })
