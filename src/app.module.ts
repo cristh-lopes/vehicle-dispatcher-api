@@ -1,9 +1,26 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { EnvConfigModule } from '@shared/config/env';
+import { typeOrmConfig } from '@shared/config/typeorm.config';
+import { CustomHttpModule } from '@shared/core/custom-http-module/custom-http.module';
+import { AppLoggerModule } from '@shared/core/logger';
+import { GuardsModule } from '@shared/guard/guards.module';
+
+import { UsersModule } from '@users/users.module';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [],
+  imports: [
+    EnvConfigModule,
+    TypeOrmModule.forRoot(typeOrmConfig),
+    CustomHttpModule,
+    AppLoggerModule,
+    UsersModule,
+    GuardsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
