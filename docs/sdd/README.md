@@ -13,7 +13,7 @@
 | Versão | Data       | Autor             | Descrição                          |
 |--------|-----------|------------------|------------------------------------|
 | 0.1    | 25/08/2025 | Cristhian Eduardo | Criação inicial do documento (contexto completo) |
-| 0.2    | TODO       | TODO             | Inclusão de diagramas e modelagem de dados |
+| 0.2    | 26/08/2025 | Cristhian Eduardo | Inclusão da primeira versão do banco de dados |
 | 1.0    | TODO       | TODO             | Primeira versão estável do SDD |
 
 ---
@@ -345,7 +345,217 @@ flowchart TD
   - Pagamentos vinculados a serviços ou avulsos  
   - Despesas podem ser gerais ou vinculadas a serviços  
 
-> **TODO:** Diagrama ER completo  
+```mermaid
+erDiagram
+    DISPATCHERS {
+        UUID id
+        TEXT name
+        TEXT document_number
+        UUID plan_id
+        TIMESTAMP signature_date
+        UUID addresses_id
+        TIMESTAMP deleted_at
+    }
+
+    DISPATCHERS_PARAMS {
+        UUID id
+        TEXT name
+        TEXT value
+        TEXT type
+        UUID dispatchers_id
+        TIMESTAMP deleted_at
+    }
+
+    DISTRICTS {
+        UUID id
+        TEXT name
+        JSONB cities
+        JSONB services
+        TIMESTAMP deleted_at
+    }
+
+    DISPATCHERS_DISTRICTS {
+        UUID id
+        UUID dispatchers_id
+        UUID districts_id
+        TIMESTAMP deleted_at
+    }
+
+    USERS {
+        UUID id
+        TEXT name
+        TEXT email
+        TEXT phone
+        BOOLEAN phone_validated
+        VARCHAR phone_validation_code
+        TIMESTAMP deleted_at
+    }
+
+    DISPATCHERS_USER {
+        UUID id
+        UUID dispatcher_id
+        UUID user_id
+        TEXT role
+        JSONB permitions
+        TIMESTAMP deleted_at
+    }
+
+    ADDRESSES {
+        UUID id
+        TEXT street
+        TEXT number
+        TEXT complement
+        TEXT district
+        TEXT city
+        TEXT state
+        TEXT zip_code
+        TIMESTAMP deleted_at
+    }
+
+    PLANS {
+        UUID id
+        TEXT name
+        NUMERIC price
+        INT max_users
+        JSONB features
+        TIMESTAMP deleted_at
+    }
+
+    CLIENTS {
+        UUID id
+        TEXT name
+        TEXT document_number
+        TEXT phone
+        UUID addresses_id
+        TIMESTAMP deleted_at
+    }
+
+    PAYMENTS {
+        UUID id
+        NUMERIC amount
+        NUMERIC paid_amount
+        TEXT payments_type
+        TIMESTAMP payments_date
+        TEXT note
+        TIMESTAMP deleted_at
+    }
+
+    SIMPLE_SERVICES {
+        UUID id
+        UUID dispatcher_id
+        UUID client_id
+        TEXT note
+        NUMERIC price
+        TEXT payments_status
+        TIMESTAMP deleted_at
+    }
+
+    SIMPLE_SERVICES_PAYMENTS {
+        UUID id
+        UUID simple_services_id
+        UUID payments_id
+        TIMESTAMP deleted_at
+    }
+
+    VEHICLES {
+        UUID id
+        TEXT plate
+        TEXT chassi
+        TEXT brand
+        TEXT model
+        INT year
+        TIMESTAMP deleted_at
+    }
+
+    COMPLEX_SERVICES {
+        UUID id
+        UUID dispatcher_id
+        UUID vehicle_id
+        UUID client_id
+        UUID new_owner_id
+        UUID old_owner_id
+        TEXT note
+        BOOLEAN has_plate_request
+        NUMERIC price
+        TEXT payments_status
+        TIMESTAMP deleted_at
+    }
+
+    SERVICE_HISTORY {
+        UUID id
+        UUID complex_services_id
+        TEXT note
+        TEXT step
+        TIMESTAMP changed_at
+        TIMESTAMP deleted_at
+    }
+
+    COMPLEX_SERVICES_PAYMENTS {
+        UUID id
+        UUID complex_services_id
+        UUID payments_id
+        TIMESTAMP deleted_at
+    }
+
+    EXPENSES_TYPES {
+        UUID id
+        TEXT name
+        TEXT color
+        TIMESTAMP deleted_at
+    }
+
+    EXPENSES {
+        UUID id
+        TEXT name
+        NUMERIC amount
+        TIMESTAMP expense_date
+        UUID expenses_types_id
+        TIMESTAMP deleted_at
+    }
+
+    COMPLEX_SERVICES_EXPENSES {
+        UUID id
+        UUID complex_services_id
+        UUID expenses_id
+        TIMESTAMP deleted_at
+    }
+
+    SIMPLE_SERVICES_EXPENSES {
+        UUID id
+        UUID simple_services_id
+        UUID expenses_id
+        TIMESTAMP deleted_at
+    }
+
+    %% Relacionamentos (refletindo os REFERENCES dos CREATE TABLE)
+    PLANS ||--o{ DISPATCHERS : "subscribes"
+    ADDRESSES ||--o{ DISPATCHERS : "address_of_dispatcher"
+    DISPATCHERS ||--o{ DISPATCHERS_PARAMS : "has_params"
+    DISPATCHERS ||--o{ DISPATCHERS_DISTRICTS : "has_district_links"
+    DISTRICTS ||--o{ DISPATCHERS_DISTRICTS : "linked_to_dispatchers"
+    DISPATCHERS ||--o{ DISPATCHERS_USER : "has_members"
+    USERS ||--o{ DISPATCHERS_USER : "member_of_dispatchers"
+    ADDRESSES ||--o{ CLIENTS : "address_of_client"
+    CLIENTS ||--o{ SIMPLE_SERVICES : "requests_simple"
+    CLIENTS ||--o{ COMPLEX_SERVICES : "requests_complex"
+    SIMPLE_SERVICES ||--o{ SIMPLE_SERVICES_PAYMENTS : "has_payment_links"
+    PAYMENTS ||--o{ SIMPLE_SERVICES_PAYMENTS : "linked_to_simple_services"
+    COMPLEX_SERVICES ||--o{ COMPLEX_SERVICES_PAYMENTS : "has_payment_links"
+    PAYMENTS ||--o{ COMPLEX_SERVICES_PAYMENTS : "linked_to_complex_services"
+    COMPLEX_SERVICES ||--o{ SERVICE_HISTORY : "has_history"
+    EXPENSES_TYPES ||--o{ EXPENSES : "categorizes"
+    EXPENSES ||--o{ COMPLEX_SERVICES_EXPENSES : "used_in_complex"
+    EXPENSES ||--o{ SIMPLE_SERVICES_EXPENSES : "used_in_simple"
+    COMPLEX_SERVICES ||--o{ COMPLEX_SERVICES_EXPENSES : "has_expenses"
+    SIMPLE_SERVICES ||--o{ SIMPLE_SERVICES_EXPENSES : "has_expenses"
+    VEHICLES ||--o{ COMPLEX_SERVICES : "involved_in"
+    DISPATCHERS ||--o{ SIMPLE_SERVICES : "offers_simple_services"
+    DISPATCHERS ||--o{ COMPLEX_SERVICES : "offers_complex_services"
+
+    %% Relações extras para new_owner_id / old_owner_id (ambos referenciam CLIENTS)
+    CLIENTS ||--o{ COMPLEX_SERVICES : "new_owner_of"
+    CLIENTS ||--o{ COMPLEX_SERVICES : "old_owner_of"
+```
 
 ---
 
