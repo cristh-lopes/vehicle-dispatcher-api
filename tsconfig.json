@@ -20,7 +20,7 @@
     "paths": {
       "@shared/*": ["src/shared/*"],
       "@users/*": ["src/modules/users/*"],
-      "@vehicles/*": ["src/modules/vehicles/*"]
+      "@addresses/*": ["src/modules/addresses/*"]
     },
     "esModuleInterop": true
   }

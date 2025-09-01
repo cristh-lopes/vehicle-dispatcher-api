@@ -25,7 +25,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',
     '^@users/(.*)$': '<rootDir>/src/modules/users/$1',
-    '^@vehicles/(.*)$': '<rootDir>/src/modules/vehicles/$1',
+    '^@addresses/(.*)$': '<rootDir>/src/modules/addresses/$1',
   },
 };
 

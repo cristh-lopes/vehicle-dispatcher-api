@@ -11,6 +11,7 @@ import { UsersModule } from '@users/users.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AddressesModule } from '@addresses/addresses.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AppService } from './app.service';
     CustomHttpModule,
     AppLoggerModule,
     UsersModule,
+    AddressesModule,
     GuardsModule,
   ],
   controllers: [AppController],
