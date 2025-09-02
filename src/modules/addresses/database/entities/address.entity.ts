@@ -29,7 +29,7 @@ export class Address {
   @Column({ name: 'city_id', type: 'uuid' })
   cityId: string;
 
-  @Column({ type: 'char', length: 8 })
+  @Column({ name: 'zip_code', type: 'char', length: 8 })
   zipCode: string;
 
   @CreateDateColumn({ name: 'created_at' })

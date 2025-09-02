@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryColumn, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  BeforeInsert,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 import { v7 as uuidv7 } from 'uuid';
 
 @Entity({ name: 'tb_cities' })
@@ -11,6 +19,15 @@ export class City {
 
   @Column({ type: 'char', length: 2 })
   state: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: Date | null;
 
   @BeforeInsert()
   beforeInsert() {
