@@ -1,5 +1,20 @@
-import { Controller, Get, Param, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Param,
+  Patch,
+  Post,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 
+import { Roles, Role } from '@shared/guard/roles.decorator';
+import { RolesGuard } from '@shared/guard/roles.guard';
+
+import { CreateAddressService } from '@addresses/services/create-address/create-address.service';
+import { CreateAddressValidatorDTO } from '@addresses/controllers/validators/create-address.dto';
 import { GetCitiesValidationDTO } from '@addresses/controllers/validators/get-cities.dto';
 import { GetCitiesService } from '@addresses/services/get-cities';
 import { UpdateCitiesService } from '@addresses/services/update-cities';
@@ -7,9 +22,26 @@ import { UpdateCitiesService } from '@addresses/services/update-cities';
 @Controller('addresses')
 export class AddressesController {
   constructor(
+    private readonly createAddressService: CreateAddressService,
     private readonly getCitiesService: GetCitiesService,
     private readonly updateCitiesService: UpdateCitiesService,
   ) {}
+
+  @Post()
+  @Roles(Role.user)
+  @UseGuards(RolesGuard)
+  async createAddress(
+    @Headers() headers: Record<string, string>,
+    @Body() params: CreateAddressValidatorDTO,
+  ) {
+    const userId: string | undefined = headers['user-id'];
+
+    if (!userId) {
+      throw new UnauthorizedException('User id not found in token');
+    }
+
+    return this.createAddressService.executeWithTransaction(params);
+  }
 
   @Get('cities/:state')
   async getCities(@Param() { state }: GetCitiesValidationDTO) {
