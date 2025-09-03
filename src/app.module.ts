@@ -15,6 +15,7 @@ import { AddressesModule } from '@addresses/addresses.module';
 import { DistrictsModule } from './modules/districts/districts.module';
 import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
 import { PaymentsModule } from './modules/payments/payments.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
     DistrictsModule,
     DispatchersModule,
     PaymentsModule,
+    ExpensesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
