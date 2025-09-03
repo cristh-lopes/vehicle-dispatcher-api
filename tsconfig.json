@@ -18,9 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@addresses/*": ["src/modules/addresses/*"],
+      "@districts/*": ["src/modules/districts/*"],
       "@shared/*": ["src/shared/*"],
-      "@users/*": ["src/modules/users/*"],
-      "@addresses/*": ["src/modules/addresses/*"]
+      "@users/*": ["src/modules/users/*"]
     },
     "esModuleInterop": true
   }
