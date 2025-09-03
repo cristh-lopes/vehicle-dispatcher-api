@@ -14,6 +14,7 @@ import { AppService } from './app.service';
 import { AddressesModule } from '@addresses/addresses.module';
 import { DistrictsModule } from './modules/districts/districts.module';
 import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
     GuardsModule,
     DistrictsModule,
     DispatchersModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
