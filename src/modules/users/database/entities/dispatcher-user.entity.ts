@@ -15,7 +15,7 @@ import { Dispatcher } from '@dispatchers/database/entities/dispatcher.entity';
 import { User } from '@users/database/entities/user.entity';
 import { UserRole } from '@users/enums/user-role.enum';
 
-@Entity({ name: 'tb_dispatchers_user' })
+@Entity({ name: 'tb_dispatchers_users' })
 export class DispatcherUser {
   @PrimaryColumn('uuid')
   id: string;
