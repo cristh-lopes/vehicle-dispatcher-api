@@ -1,3 +1,4 @@
+import { District } from '@districts/database/entities/district.entity';
 import {
   Entity,
   Column,
@@ -6,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import { v7 as uuidv7 } from 'uuid';
 
@@ -19,6 +21,9 @@ export class City {
 
   @Column({ type: 'char', length: 2 })
   state: string;
+
+  @ManyToMany(() => District, (district) => district.cities)
+  districts: District[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
