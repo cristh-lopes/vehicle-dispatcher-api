@@ -22,6 +22,7 @@
       "@clients/*": ["src/modules/clients/*"],
       "@dispatchers/*": ["src/modules/dispatchers/*"],
       "@districts/*": ["src/modules/districts/*"],
+      "@expenses/*": ["src/modules/expenses/*"],
       "@shared/*": ["src/shared/*"],
       "@users/*": ["src/modules/users/*"]
     },
