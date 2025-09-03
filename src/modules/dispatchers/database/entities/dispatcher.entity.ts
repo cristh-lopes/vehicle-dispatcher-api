@@ -10,9 +10,12 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { v7 as uuidv7 } from 'uuid';
 import { Plan } from './plan.entity';
+import { District } from '@districts/database/entities/district.entity';
 
 @Entity({ name: 'tb_dispatchers' })
 export class Dispatcher {
@@ -35,6 +38,14 @@ export class Dispatcher {
   @ManyToOne('tb_plans')
   @JoinColumn({ name: 'plan_id' })
   plan: Plan;
+
+  @ManyToMany(() => District, (district) => district.dispatchers)
+  @JoinTable({
+    name: 'tb_dispatchers_districts',
+    joinColumn: { name: 'dispatcher_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'district_id', referencedColumnName: 'id' },
+  })
+  districts: District[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

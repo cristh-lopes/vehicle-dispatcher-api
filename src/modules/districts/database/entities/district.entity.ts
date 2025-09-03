@@ -1,4 +1,5 @@
 import { City } from '@addresses/database/entities/city.entity';
+import { Dispatcher } from '@dispatchers/database/entities/dispatcher.entity';
 import {
   BeforeInsert,
   Column,
@@ -28,6 +29,9 @@ export class District {
     inverseJoinColumn: { name: 'city_id', referencedColumnName: 'id' },
   })
   cities: City[];
+
+  @ManyToMany(() => Dispatcher, (dispatcher) => dispatcher.districts)
+  dispatchers: Dispatcher[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
