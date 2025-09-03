@@ -18,6 +18,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
 import { SimpleServicesModule } from './modules/simple-services/simple-services.module';
 import { ComplexServicesModule } from './modules/complex-services/complex-services.module';
+import { VehiclesModule } from './modules/vehicles/vehicles.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ComplexServicesModule } from './modules/complex-services/complex-servic
     ExpensesModule,
     SimpleServicesModule,
     ComplexServicesModule,
+    VehiclesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
