@@ -1,3 +1,4 @@
+import { Clients } from '@clients/database/entities/clients.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { EnvConfigModule } from '@shared/config/env';
@@ -7,7 +8,7 @@ import { GuardsModule } from '@shared/guard/guards.module';
 
 export const clientModuleImports = [
   EnvConfigModule,
-  TypeOrmModule.forFeature([]),
+  TypeOrmModule.forFeature([Clients]),
   FirebaseModule,
   AppLoggerModule,
   GuardsModule,

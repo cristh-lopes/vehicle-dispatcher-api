@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@addresses/*": ["src/modules/addresses/*"],
+      "@clients/*": ["src/modules/clients/*"],
       "@dispatchers/*": ["src/modules/dispatchers/*"],
       "@districts/*": ["src/modules/districts/*"],
       "@shared/*": ["src/shared/*"],
