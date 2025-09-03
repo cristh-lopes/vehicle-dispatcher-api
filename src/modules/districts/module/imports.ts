@@ -6,8 +6,10 @@ import { FirebaseModule } from '@shared/core/firebase';
 import { AppLoggerModule } from '@shared/core/logger';
 import { GuardsModule } from '@shared/guard/guards.module';
 
+import { District } from '@districts/database/entities/district.entity';
+
 export const districtModuleImports = [
-  TypeOrmModule.forFeature([]),
+  TypeOrmModule.forFeature([District]),
   CustomHttpModule,
   AppLoggerModule,
   EnvConfigModule,
