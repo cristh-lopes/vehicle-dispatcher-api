@@ -16,6 +16,7 @@ import { DistrictsModule } from './modules/districts/districts.module';
 import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
+import { SimpleServicesModule } from './modules/simple-services/simple-services.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
     DispatchersModule,
     PaymentsModule,
     ExpensesModule,
+    SimpleServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
