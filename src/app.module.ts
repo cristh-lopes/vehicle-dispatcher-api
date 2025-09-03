@@ -17,6 +17,7 @@ import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
 import { SimpleServicesModule } from './modules/simple-services/simple-services.module';
+import { ComplexServicesModule } from './modules/complex-services/complex-services.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { SimpleServicesModule } from './modules/simple-services/simple-services.
     PaymentsModule,
     ExpensesModule,
     SimpleServicesModule,
+    ComplexServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
