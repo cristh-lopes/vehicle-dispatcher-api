@@ -24,6 +24,7 @@ const config: Config = {
   passWithNoTests: true,
   moduleNameMapper: {
     '^@addresses/(.*)$': '<rootDir>/src/modules/addresses/$1',
+    '^@dispatchers/(.*)$': '<rootDir>/src/modules/dispatchers/$1',
     '^@districts/(.*)$': '<rootDir>/src/modules/districts/$1',
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',
     '^@users/(.*)$': '<rootDir>/src/modules/users/$1',

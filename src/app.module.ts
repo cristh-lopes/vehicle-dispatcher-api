@@ -13,6 +13,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AddressesModule } from '@addresses/addresses.module';
 import { DistrictsModule } from './modules/districts/districts.module';
+import { DispatchersModule } from './modules/dispatchers/dispatchers.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { DistrictsModule } from './modules/districts/districts.module';
     AddressesModule,
     GuardsModule,
     DistrictsModule,
+    DispatchersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
