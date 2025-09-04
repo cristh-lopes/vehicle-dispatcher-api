@@ -20,8 +20,14 @@ export class Expenses {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
-  color: string;
+  @Column({ type: 'varchar', nullable: true })
+  note: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
+  amount: number;
+
+  @Column({ type: 'timestamp', name: 'expense_date', default: () => 'now()' })
+  expenseDate: Date;
 
   @ManyToOne('tb_expenses_types')
   @JoinColumn({ name: 'expenses_types_id' })

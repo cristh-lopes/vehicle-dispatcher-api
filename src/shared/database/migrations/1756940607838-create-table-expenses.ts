@@ -6,7 +6,9 @@ export class CreateTableExpenses1756940607838 implements MigrationInterface {
       `CREATE TABLE "tb_expenses" (
         "id" uuid NOT NULL,
         "name" character varying NOT NULL,
-        "color" character varying NOT NULL,
+        "note" character varying NULL,
+        "amount" numeric(10,2) NOT NULL,
+        "expense_date" TIMESTAMP NOT NULL DEFAULT now(),
         "expenses_types_id" uuid NULL,
         "created_at" TIMESTAMP NOT NULL DEFAULT now(),
         "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
