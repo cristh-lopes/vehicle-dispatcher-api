@@ -9,7 +9,6 @@ export class CreateTablePayments1757021607337 implements MigrationInterface {
         "note" character varying NULL,
         "amount" numeric(10,2) NOT NULL,
         "payment_date" TIMESTAMP NOT NULL DEFAULT now(),
-        "payments_types_id" uuid NULL,
         "created_at" TIMESTAMP NOT NULL DEFAULT now(),
         "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
         "deleted_at" TIMESTAMP,
