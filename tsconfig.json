@@ -24,7 +24,8 @@
       "@districts/*": ["src/modules/districts/*"],
       "@expenses/*": ["src/modules/expenses/*"],
       "@shared/*": ["src/shared/*"],
-      "@users/*": ["src/modules/users/*"]
+      "@users/*": ["src/modules/users/*"],
+      "@vehicles/*": ["src/modules/vehicles/*"]
     },
     "esModuleInterop": true
   }
