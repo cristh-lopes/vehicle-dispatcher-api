@@ -5,6 +5,7 @@ import {
   Headers,
   Param,
   Post,
+  Put,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -14,12 +15,15 @@ import { CreatePlanValidatorDTO } from './validators/create-plan.dto';
 import { CreatePlansService } from '@dispatchers/services/create-plans';
 import { GetPlansService } from '@dispatchers/services/get-plans';
 import { GetByIdValidationDTO } from './validators/get-by-id.dto';
+import { UpdatePlanValidatorDTO } from './validators/update-plan.dto';
+import { UpdatePlansService } from '@dispatchers/services/update-plans';
 
 @Controller('plans')
 export class PlansController {
   constructor(
     private readonly createPlansService: CreatePlansService,
     private readonly getPlansService: GetPlansService,
+    private readonly updatePlansService: UpdatePlansService,
   ) {}
 
   @Post()
@@ -48,5 +52,12 @@ export class PlansController {
   @Roles(Role.user)
   async getById(@Param() { id }: GetByIdValidationDTO) {
     return this.getPlansService.getById(id);
+  }
+
+  @Put(':id')
+  @Roles(Role.user)
+  @UseGuards(RolesGuard)
+  async updatePlan(@Param() { id }: GetByIdValidationDTO, @Body() data: UpdatePlanValidatorDTO) {
+    return this.updatePlansService.executeWithTransaction({ id, ...data });
   }
 }
