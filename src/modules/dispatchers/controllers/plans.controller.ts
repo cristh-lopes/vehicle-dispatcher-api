@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Headers,
   Param,
@@ -17,6 +18,7 @@ import { GetPlansService } from '@dispatchers/services/get-plans';
 import { GetByIdValidationDTO } from './validators/get-by-id.dto';
 import { UpdatePlanValidatorDTO } from './validators/update-plan.dto';
 import { UpdatePlansService } from '@dispatchers/services/update-plans';
+import { DeletePlansService } from '@dispatchers/services/delete-plans';
 
 @Controller('plans')
 export class PlansController {
@@ -24,6 +26,7 @@ export class PlansController {
     private readonly createPlansService: CreatePlansService,
     private readonly getPlansService: GetPlansService,
     private readonly updatePlansService: UpdatePlansService,
+    private readonly deletePlansService: DeletePlansService,
   ) {}
 
   @Post()
@@ -59,5 +62,12 @@ export class PlansController {
   @UseGuards(RolesGuard)
   async updatePlan(@Param() { id }: GetByIdValidationDTO, @Body() data: UpdatePlanValidatorDTO) {
     return this.updatePlansService.executeWithTransaction({ id, ...data });
+  }
+
+  @Delete(':id')
+  @Roles(Role.user)
+  @UseGuards(RolesGuard)
+  async deletePlan(@Param() { id }: GetByIdValidationDTO) {
+    return this.deletePlansService.executeWithTransaction(id);
   }
 }
