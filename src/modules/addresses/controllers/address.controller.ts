@@ -18,12 +18,15 @@ import { CreateAddressValidatorDTO } from '@addresses/controllers/validators/cre
 import { GetCitiesValidationDTO } from '@addresses/controllers/validators/get-cities.dto';
 import { GetCitiesService } from '@addresses/services/get-cities';
 import { UpdateCitiesService } from '@addresses/services/update-cities';
+import { GetAddressesService } from '@addresses/services/get-addresses';
+import { GetByIdValidationDTO } from '@dispatchers/controllers/validators/get-by-id.dto';
 
 @Controller('addresses')
 export class AddressesController {
   constructor(
     private readonly createAddressService: CreateAddressService,
     private readonly getCitiesService: GetCitiesService,
+    private readonly getAddressesService: GetAddressesService,
     private readonly updateCitiesService: UpdateCitiesService,
   ) {}
 
@@ -41,6 +44,18 @@ export class AddressesController {
     }
 
     return this.createAddressService.executeWithTransaction(params);
+  }
+
+  @Get()
+  @UseGuards(RolesGuard)
+  async getAddresses() {
+    return this.getAddressesService.getAll();
+  }
+
+  @Get(':id')
+  @Roles(Role.user)
+  async getById(@Param() { id }: GetByIdValidationDTO) {
+    return this.getAddressesService.getById(id);
   }
 
   @Get('cities/:state')
