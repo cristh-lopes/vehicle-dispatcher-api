@@ -31,9 +31,15 @@ export class Dispatcher {
   @Column({ type: 'varchar' })
   document: string;
 
+  @Column({ name: 'address_id', type: 'uuid' })
+  addressId: string;
+
   @OneToOne('tb_addresses')
   @JoinColumn({ name: 'address_id' })
   address: Address;
+
+  @Column({ name: 'plan_id', type: 'uuid' })
+  planId: string;
 
   @ManyToOne('tb_plans')
   @JoinColumn({ name: 'plan_id' })

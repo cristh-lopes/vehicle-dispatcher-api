@@ -1,3 +1,4 @@
+import { CreateDispatcherService } from '@dispatchers/services/create-dispatchers';
 import { CreatePlansService } from '@dispatchers/services/create-plans';
 import { DeletePlansService } from '@dispatchers/services/delete-plans';
 import { GetPlansService } from '@dispatchers/services/get-plans';
@@ -8,4 +9,5 @@ export const dispatcherModuleProviders = [
   GetPlansService,
   UpdatePlansService,
   DeletePlansService,
+  CreateDispatcherService,
 ];
