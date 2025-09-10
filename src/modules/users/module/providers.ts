@@ -1,3 +1,4 @@
+import { AssociateUserService } from '@users/services/associate-user';
 import { CreateUserService } from '@users/services/create-user';
 import { DispatcherUserService } from '@users/services/dispatcher-user';
 import { GetUserService } from '@users/services/get-user';
@@ -7,5 +8,6 @@ export const userModuleProviders = [
   CreateUserService,
   ValidatePhoneService,
   GetUserService,
+  AssociateUserService,
   DispatcherUserService,
 ];

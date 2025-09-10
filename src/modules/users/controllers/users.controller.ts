@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Headers, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Post,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 
 import { Role, Roles } from '@shared/guard/roles.decorator';
 import { RolesGuard } from '@shared/guard/roles.guard';
@@ -9,11 +17,13 @@ import { ValidatePhoneService } from '@users/services/validate-phone';
 
 import { CreateUserValidatorDTO } from './validators/create-user.validator.dto';
 import { ValidatePhoneValidatorDTO } from './validators/validate-phone.validator.dto';
+import { AssociateUserService } from '@users/services/associate-user';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly createUserService: CreateUserService,
+    private readonly associateUserService: AssociateUserService,
     private readonly validatePhoneService: ValidatePhoneService,
     private readonly getUserService: GetUserService,
   ) {}
@@ -21,6 +31,19 @@ export class UsersController {
   @Post()
   async createUser(@Body() params: CreateUserValidatorDTO) {
     return this.createUserService.executeWithTransaction(params);
+  }
+
+  @Get('associate')
+  @Roles(Role.user)
+  @UseGuards(RolesGuard)
+  async associate(@Headers() headers: Record<string, string>) {
+    const userId: string | undefined = headers['user-id'];
+
+    if (!userId || userId.trim() === '') {
+      throw new UnauthorizedException('Usuário não autorizado');
+    }
+
+    return this.associateUserService.execute(userId);
   }
 
   @Post('phones/validate')
